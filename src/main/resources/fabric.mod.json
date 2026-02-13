@@ -1,41 +1,35 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "locktouch",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Locktouch",
+	"description": "A small mod that makes Vaults easier to loot by adding even more gambling.",
 	"authors": [
-		"Me!"
+		"mintynoura"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/mintynoura/locktouch"
 	},
-	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"license": "MIT",
+	"icon": "assets/locktouch/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"io.github.mintynoura.locktouch.Locktouch"
 		],
 		"client": [
-			"com.example.ExampleModClient"
+			"io.github.mintynoura.locktouch.LocktouchClient"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
-		{
-			"config": "modid.client.mixins.json",
-			"environment": "client"
-		}
+		"locktouch.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.18.2",
-		"minecraft": "~1.21.11",
+		"minecraft": "1.21.x",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
 	}
 }

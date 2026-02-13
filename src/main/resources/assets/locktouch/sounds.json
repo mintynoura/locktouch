@@ -1,0 +1,14 @@
+{
+  "item.key.recycle": {
+    "sounds": [
+      "random/successful_hit"
+    ],
+    "subtitle": "subtitles.item.key.recycle"
+  },
+  "item.lockpick.recycle": {
+    "sounds": [
+      "random/successful_hit"
+    ],
+    "subtitle": "subtitles.item.lockpick.recycle"
+  }
+}
