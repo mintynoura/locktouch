@@ -73,7 +73,8 @@ public class Locktouch implements ModInitializer {
 	public void onInitialize() {
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(content -> {
 				content.addAfter(Items.OMINOUS_TRIAL_KEY, LOCKPICK);
-				content.addAfter(LOCKPICK, LOCKPICK_CHARM);
+				content.addAfter(LOCKPICK, DIAMOND_LOCKPICK);
+				content.addAfter(DIAMOND_LOCKPICK, LOCKPICK_CHARM);
 		});
 		LootTableEvents.MODIFY.register((id, tableBuilder, source, registries) -> {
 			if (source.isBuiltin()) {
