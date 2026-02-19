@@ -1,9 +1,13 @@
 {
   "item.locktouch.lockpick": "Lockpick",
+  "item.locktouch.diamond_lockpick": "Diamond Lockpick",
   "item.locktouch.lockpick_charm": "Lockpicking Charm",
   "attribute.name.recycle_lockpick_chance": "Lockpick Recycling Chance",
   "attribute.name.recycle_key_chance": "Key Recycling Chance",
   "attribute.name.lockpick_success_chance": "Lockpicking Chance",
   "subtitles.item.key.recycle": "Key recycled",
-  "subtitles.item.lockpick.recycle": "Lockpick recycled"
+  "subtitles.item.lockpick.recycle": "Lockpick recycled",
+  "lore.locktouch.lockpick": "An item that can be used to pick Vaults open.",
+  "lore.locktouch.diamond_lockpick": "An item that can be used to pick Ominous Vaults open.",
+  "lore.locktouch.lockpick_charm": "A strange charm that allows you to reuse Trial Keys and Lockpicks."
 }

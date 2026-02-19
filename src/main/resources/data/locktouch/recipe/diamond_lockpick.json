@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "minecraft:iron_nugget",
+    "X": "#minecraft:diamond_tool_materials"
+  },
+  "pattern": [
+    "##",
+    "#X",
+    " X"
+  ],
+  "result": {
+    "count": 2,
+    "id": "locktouch:diamond_lockpick"
+  }
+}

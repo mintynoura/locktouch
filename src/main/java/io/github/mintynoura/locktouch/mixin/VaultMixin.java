@@ -20,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.VaultBlock;
 import net.minecraft.world.level.block.entity.vault.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -70,12 +71,17 @@ public abstract class VaultMixin {
             Player player,
             ItemStack itemStack,
             CallbackInfo ci) {
-        if (itemStack.is(Locktouch.LOCKPICK) && canEjectReward(vaultConfig, blockState.getValue(VaultBlock.STATE))) {
+        if (canEjectReward(vaultConfig, blockState.getValue(VaultBlock.STATE))) {
+            if ((itemStack.is(Locktouch.LOCKPICK) && blockState.getValue(BlockStateProperties.OMINOUS)) || (itemStack.is(Locktouch.DIAMOND_LOCKPICK) && !blockState.getValue(BlockStateProperties.OMINOUS))) {
+                serverLevel.playSound(null, blockPos, SoundEvents.VAULT_INSERT_ITEM_FAIL, SoundSource.BLOCKS);
+            }
+            if ((itemStack.is(Locktouch.LOCKPICK) && !blockState.getValue(BlockStateProperties.OMINOUS)) || (itemStack.is(Locktouch.DIAMOND_LOCKPICK) && blockState.getValue(BlockStateProperties.OMINOUS))) {
                 List<ItemStack> list = resolveItemsToEject(serverLevel, vaultConfig, blockPos, player, itemStack);
                 if (!list.isEmpty()) {
                     Vec3 look = player.getLookAngle();
                     player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
-                    if (player.getOffhandItem().is(Locktouch.LOCKPICK_CHARM)) player.getOffhandItem().hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
+                    if (player.getOffhandItem().is(Locktouch.LOCKPICK_CHARM))
+                        player.getOffhandItem().hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
                     if (player.level().random.nextFloat() > player.getAttributeValue(Locktouch.RECYCLE_LOCKPICK_CHANCE)) {
                         itemStack.consume(1, player);
                         serverLevel.playSound(null, player.blockPosition(), SoundEvents.ITEM_BREAK.value(), SoundSource.PLAYERS);
@@ -89,16 +95,17 @@ public abstract class VaultMixin {
                         vaultServerData.addToRewardedPlayers(player);
                     }
                 }
+            }
         }
     }
 
     @ModifyReturnValue(method = "isValidToInsert", at = @At("RETURN"))
     private static boolean locktouch$allowLockpick(boolean original, @Local(argsOnly = true) ItemStack itemStack) {
-        return original || itemStack.is(Locktouch.LOCKPICK);
+        return original || itemStack.is(Locktouch.LOCKPICK) || itemStack.is(Locktouch.DIAMOND_LOCKPICK);
     }
 
     @ModifyExpressionValue(method = "tryInsertKey", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/vault/VaultBlockEntity$Server;canEjectReward(Lnet/minecraft/world/level/block/entity/vault/VaultConfig;Lnet/minecraft/world/level/block/entity/vault/VaultState;)Z"))
     private static boolean locktouch$removeLockpickCondition(boolean original, @Local(argsOnly = true) ItemStack itemStack) {
-        return original && !itemStack.is(Locktouch.LOCKPICK);
+        return original && !itemStack.is(Locktouch.LOCKPICK) && !itemStack.is(Locktouch.DIAMOND_LOCKPICK);
     }
 }

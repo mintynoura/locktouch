@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lockpick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "locktouch:lockpick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "locktouch:diamond_lockpick"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lockpick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "locktouch:diamond_lockpick"
+    ]
+  }
+}
